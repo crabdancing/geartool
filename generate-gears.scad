@@ -84,7 +84,7 @@ spur_bore = 8; // [0:0.01:200]
 lead_angle = 5; // [0.5:0.01:5]
 
 /* [Spiral Bevel] */
-partial_cone_angle = 0;
+partial_cone_angle = 0; 
 spiral_bevel_tooth_width = 0;
 
 if (gear_type == "spur") {
