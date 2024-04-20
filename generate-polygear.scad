@@ -8,6 +8,8 @@ gear_type = "polybevel"; // [polybevel, polyspur]
 num_teeth = 16; // [7:1:2000]
 // Module
 mod = 1; // [1:0.01:40]
+bore = 0; // [0:0.01:200]
+bore_face_num = 100; // [10:1:500]
 
 /* [PolyGear Spur] */
 // Pressure angle
@@ -34,8 +36,8 @@ polyspur_profile_shift = 0; // [0:0.001:1]
 polyspur_type=1; //  [-1:type2, 1:type1]
 // Tooth profile subdivision
 polyspur_face_num = 100;
+// tooth thickness
 polyspur_thickness = 0;
-
 
 
 /* [PolyGear Bevel] */
@@ -66,15 +68,23 @@ polybevel_profile_shift = 0; // [0:0.001:1]
 polybevel_type=1; //  [-1:type2, 1:type1]
 // Tooth profile subdivision
 polybevel_face_num = 100;
+// tooth thickness
 polybevel_thickness = 0;
 
 
 
 
-if (gear_type == "polyspur") {
-	spur_gear(n = num_teeth, m = mod, z = polyspur_thickness, pressure_angle = polyspur_pressure_angle, helix_angle = polyspur_helix_angle, backlash = polyspur_backlash, w = polyspur_gear_width, tol = polyspur_tol, chamfer = polyspur_chamfer, chamfer_shift = polyspur_chamfer_shift, add = polyspur_add, ded = polyspur_ded, x = polyspur_profile_shift, type = polyspur_type, $fn = polyspur_face_num);
-} else if (gear_type == "polybevel") {
-	bevel_gear(n = num_teeth, m = mod, w = teeth_width, cone_angle = cone_angle, pressure_angle = polybevel_pressure_angle, helix_angle = polybevel_helix_angle, backlash = polybevel_backlash, z = undef, a0 = undef, b0 = undef, tol = polybevel_tol, add = polybevel_add, ded = polybevel_ded, x = polybevel_profile_shift, type = polybevel_type);
-} else {
-	assert(false);
+difference() {
+	union() {
+		if (gear_type == "polyspur") {
+			spur_gear(n = num_teeth, m = mod, z = polyspur_thickness, pressure_angle = polyspur_pressure_angle, helix_angle = polyspur_helix_angle, backlash = polyspur_backlash, w = polyspur_gear_width, tol = polyspur_tol, chamfer = polyspur_chamfer, chamfer_shift = polyspur_chamfer_shift, add = polyspur_add, ded = polyspur_ded, x = polyspur_profile_shift, type = polyspur_type, $fn = polyspur_face_num);
+		} else if (gear_type == "polybevel") {
+			bevel_gear(n = num_teeth, m = mod, w = teeth_width, cone_angle = cone_angle, pressure_angle = polybevel_pressure_angle, helix_angle = polybevel_helix_angle, backlash = polybevel_backlash, z = undef, a0 = undef, b0 = undef, tol = polybevel_tol, add = polybevel_add, ded = polybevel_ded, x = polybevel_profile_shift, type = polybevel_type);
+		} else if (gear_type == "rack") {
+		// rack(modul, length, height, width, pressure_angle=20, helix_angle=0)
+		} else {
+			assert(false);
+		}
+	}
+	cylinder(h = 200, d = bore, center = true, $fn = bore_face_num);
 }
