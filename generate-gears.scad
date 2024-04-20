@@ -1,5 +1,82 @@
 use <deps/gears/gears.scad>
 
+/* [Global] */
+gear_type = "spur"; // [bevel, spur]
+// Number of teeth
+num_teeth = 16; // [7:1:2000]
+// Module
+mod = 1; // [1:0.01:40]
+// Bore
+bore = 0; // [0:0.01:200]
+// Pressure angle
+pressure_angle = 20; // [5:0.001:40]
+// Helix angle
+helix_angle = 0; // [0:0.001:30]
+// Face number
+$fn = 100; // [0:1:500]
 
-spur_gear(modul = 1, tooth_number = 16, width = 1, bore = 1, pressure_angle = 20, helix_angle = 0, optimized = true);
+/* [Spur] */
+gear_width = 1;
+// Backlash
+// polyspur_backlash = 0.1; // [0:0.001:1]
+// // Gear width
+// polyspur_gear_width = 5; // [1:0.001:1000]
+// // Tolerences
+// polyspur_tol = 0.0; // [0:0.001:1]
+// // Chamfer
+// polyspur_chamfer = 0.0; // [0:0.1:89]
+// // Chamfer shift -- no idea what it does
+// polyspur_chamfer_shift = 1.0;
+// // add to addendum
+// polyspur_add = 0;
+// // subtract to the dedendum
+// polyspur_ded = 0;
+// // profile shift
+// polyspur_profile_shift = 0; // [0:0.001:1]
+// // type
+// polyspur_type=1; //  [-1:type2, 1:type1]
+// // Tooth profile subdivision
+// polyspur_face_num = 100;
+// // tooth thickness
+// polyspur_thickness = 0;
 
+
+/* [Bevel] */
+// Teeth width
+teeth_width = 1.0; // [0:0.001:100]
+cone_angle = 45;
+// // Pressure angle
+// polybevel_pressure_angle = 20; // [5:0.001:40]
+// // Helix angle
+// polybevel_helix_angle = 0; // [0:0.001:30]
+// // Backlash
+// polybevel_backlash = 0.1; // [0:0.001:1]
+// // Gear width
+// polybevel_gear_width = 5; // [1:0.001:1000]
+// // Tolerences
+// polybevel_tol = 0.0; // [0:0.001:1]
+// // Chamfer
+// polybevel_chamfer = 0.0; // [0:0.1:89]
+// // Chamfer shift -- no idea what it does
+// polybevel_chamfer_shift = 1.0;
+// // add to addendum
+// polybevel_add = 0;
+// // subtract to the dedendum
+// polybevel_ded = 0;
+// // profile shift
+// polybevel_profile_shift = 0; // [0:0.001:1]
+// // type
+// polybevel_type=1; //  [-1:type2, 1:type1]
+// // Tooth profile subdivision
+// polybevel_face_num = 100;
+// // tooth thickness
+// polybevel_thickness = 0;
+
+
+
+if (gear_type == "spur") {
+	spur_gear(modul = mod, tooth_number = num_teeth, width = gear_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle, optimized = true, $fn = $fn);
+} else if (gear_type == "bevel") {
+	bevel_gear(modul = mod, tooth_number = num_teeth, partial_cone_angle = cone_angle, tooth_width = teeth_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle, $fn = $fn);
+
+}

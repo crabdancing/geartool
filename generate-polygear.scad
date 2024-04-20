@@ -80,8 +80,6 @@ difference() {
 			spur_gear(n = num_teeth, m = mod, z = polyspur_thickness, pressure_angle = polyspur_pressure_angle, helix_angle = polyspur_helix_angle, backlash = polyspur_backlash, w = polyspur_gear_width, tol = polyspur_tol, chamfer = polyspur_chamfer, chamfer_shift = polyspur_chamfer_shift, add = polyspur_add, ded = polyspur_ded, x = polyspur_profile_shift, type = polyspur_type, $fn = polyspur_face_num);
 		} else if (gear_type == "polybevel") {
 			bevel_gear(n = num_teeth, m = mod, w = teeth_width, cone_angle = cone_angle, pressure_angle = polybevel_pressure_angle, helix_angle = polybevel_helix_angle, backlash = polybevel_backlash, z = undef, a0 = undef, b0 = undef, tol = polybevel_tol, add = polybevel_add, ded = polybevel_ded, x = polybevel_profile_shift, type = polybevel_type);
-		} else if (gear_type == "rack") {
-		// rack(modul, length, height, width, pressure_angle=20, helix_angle=0)
 		} else {
 			assert(false);
 		}

@@ -1,0 +1,11 @@
+{
+    "fileFormatVersion": "1",
+    "parameterSets": {
+        "New set 1": {
+            "bore": "0",
+            "bore_face_num": "100",
+            "mod": "1",
+            "num_teeth": "10"
+        }
+    }
+}
