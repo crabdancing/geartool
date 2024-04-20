@@ -1,7 +1,7 @@
 use <deps/gears/gears.scad>
 
 /* [Global] */
-gear_type = "spur"; // [bevel, spur, worm]
+gear_type = "spur"; // [bevel, spur, worm, spiral_bevel]
 // Number of teeth
 num_teeth = 16; // [7:1:2000]
 // Module
@@ -83,6 +83,9 @@ spur_bore = 8; // [0:0.01:200]
 //Lead angle
 lead_angle = 5; // [0.5:0.01:5]
 
+/* [Spiral Bevel] */
+partial_cone_angle = 0;
+spiral_bevel_tooth_width = 0;
 
 if (gear_type == "spur") {
 	spur_gear(modul = mod, tooth_number = num_teeth, width = gear_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle, optimized = true, $fn = $fn);
@@ -90,6 +93,8 @@ if (gear_type == "spur") {
 	bevel_gear(modul = mod, tooth_number = num_teeth, partial_cone_angle = cone_angle, tooth_width = tooth_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle, $fn = $fn);
 } else if (gear_type == "worm") {
 	worm_gear(modul = mod, tooth_number = num_teeth, thread_starts = thread_starts, width = worm_tooth_width, length = worm_length, worm_bore = bore, gear_bore = spur_bore, pressure_angle = pressure_angle, lead_angle = lead_angle, optimized = true, together_built = true, show_spur = show_spur, show_worm = show_worm);
+} else if (gear_type == "spiral_bevel") {
+	spiral_bevel_gear(modul = mod, tooth_number = num_teeth, partial_cone_angle = partial_cone_angle, tooth_width = spiral_bevel_tooth_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle);
 } else {
 	assert(false);
 }
