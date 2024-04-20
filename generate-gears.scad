@@ -1,13 +1,13 @@
 use <deps/gears/gears.scad>
 
 /* [Global] */
-gear_type = "spur"; // [bevel, spur]
+gear_type = "spur"; // [bevel, spur, worm]
 // Number of teeth
 num_teeth = 16; // [7:1:2000]
 // Module
-mod = 1; // [1:0.01:40]
+mod = 1; // [0.1:0.01:40]
 // Bore
-bore = 0; // [0:0.01:200]
+bore = 8; // [0:0.01:200]
 // Pressure angle
 pressure_angle = 20; // [5:0.001:40]
 // Helix angle
@@ -43,7 +43,7 @@ gear_width = 1;
 
 /* [Bevel] */
 // Teeth width
-teeth_width = 1.0; // [0:0.001:100]
+tooth_width = 1.0; // [0:0.001:100]
 cone_angle = 45;
 // // Pressure angle
 // polybevel_pressure_angle = 20; // [5:0.001:40]
@@ -72,11 +72,24 @@ cone_angle = 45;
 // // tooth thickness
 // polybevel_thickness = 0;
 
+/* [Worm] */
+show_spur = true;
+show_worm = true;
+worm_length = 10; // [1:0.01:500]
+thread_starts = 1; // [1:1:100]
+worm_tooth_width = 5.0; // [0:0.001:100]
+// Spur bore
+spur_bore = 8; // [0:0.01:200]
+//Lead angle
+lead_angle = 5; // [0.5:0.01:5]
 
 
 if (gear_type == "spur") {
 	spur_gear(modul = mod, tooth_number = num_teeth, width = gear_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle, optimized = true, $fn = $fn);
 } else if (gear_type == "bevel") {
-	bevel_gear(modul = mod, tooth_number = num_teeth, partial_cone_angle = cone_angle, tooth_width = teeth_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle, $fn = $fn);
-
+	bevel_gear(modul = mod, tooth_number = num_teeth, partial_cone_angle = cone_angle, tooth_width = tooth_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle, $fn = $fn);
+} else if (gear_type == "worm") {
+	worm_gear(modul = mod, tooth_number = num_teeth, thread_starts = thread_starts, width = worm_tooth_width, length = worm_length, worm_bore = bore, gear_bore = spur_bore, pressure_angle = pressure_angle, lead_angle = lead_angle, optimized = true, together_built = true, show_spur = show_spur, show_worm = show_worm);
+} else {
+	assert(false);
 }
