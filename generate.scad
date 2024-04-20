@@ -1,6 +1,6 @@
-use <../PolyGear.scad>
-use <../shortcuts.scad>
-use <../PolyGearBasics.scad>
+use <deps/PolyGear/PolyGear.scad>
+use <deps/PolyGear/shortcuts.scad>
+use <deps/PolyGear/PolyGearBasics.scad>
 
 /* [Global] */
 gear_type = "bevel"; // [bevel, spur]
