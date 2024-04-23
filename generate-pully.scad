@@ -2,7 +2,7 @@
 // Includes credits for earlier versions of the code.
 
 /* [Facets] */
-$fn = 30;         // [3:60]
+$fn = 30;         // [3:200]
 
 
 
