@@ -2,7 +2,7 @@
 // Includes credits for earlier versions of the code.
 
 /* [Facets] */
-$fn = 30;         // [3:200]
+$fn = 100;         // [3:200]
 
 
 
@@ -56,20 +56,20 @@ T_Ena = true;
 T_OD = 10;       // [1:.01:30]
 
 // Tooth Profile
-T_Prof_Idx = 5;   // [0:MXL,1:40DP,2:XL,3:H,4:T2.5,5:T5,6:T10,7:AT5,8:HTD_3mm,9:HTD_5mm,10:HTD_8mm,11:GT2_2mm,12:GT2_3mm,13:GT2_5mm]
+T_Prof_Idx = 9;   // [0:MXL,1:40DP,2:XL,3:H,4:T2.5,5:T5,6:T10,7:AT5,8:HTD_3mm,9:HTD_5mm,10:HTD_8mm,11:GT2_2mm,12:GT2_3mm,13:GT2_5mm]
 
 // Number of T_Count, standard Mendel T5 belt = 8, gives Outside Diameter of 11.88mm
-T_Count   = 8;    // [3:1000]
+T_Count   = 30;    // [3:1000]
 
 
 
 /* [Drive Shaft] */
 
 // NEMA17 motor shaft exact diameter = 5
-DShaft_D = 5.2;      // [0:.01:10]
+DShaft_D = 8.5;      // [0:.01:10]
 
 // Half shaft fraction
-DShaft_F = .2;       // [0:.01:.5]
+DShaft_F = 0;       // [0:.01:.5]
 
 
 
