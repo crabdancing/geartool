@@ -31,14 +31,16 @@ lead_angle = 5; // [0.5:0.01:5]
 /* [Spiral Bevel] */
 // Number of gear teeth
 spiral_bevel_num_tooth = 16; // [7:1:2000]
-partial_cone_angle = 0; 
-spiral_bevel_tooth_width = 0;
+spiral_bevel_partial_cone_angle = 10; 
+spiral_bevel_tooth_width = 10;
 
 /* [Planetary] */
-num_sun_tooth = 15; // [7:1:2000]
-num_planet_tooth = 14; // [7:1:2000]
-num_planets = 3; // [2:1:20]
-rim_width = 10; // [0:0.01:100]
+planetary_planet_bore = 1.0; // [0:0.01:200]
+planetary_sun_bore = 1.0; // [0:0.01:200]
+planetary_num_sun_tooth = 15; // [7:1:2000]
+planetary_num_planet_tooth = 14; // [7:1:2000]
+planetary_num_planets = 3; // [2:1:20]
+planetary_rim_width = 10; // [0:0.01:100]
 planetary_gear_width = 10; // [0.5:0.01:100]
 together_built = true;
 
@@ -49,9 +51,9 @@ if (gear_type == "spur") {
 } else if (gear_type == "worm") {
 	worm_gear(modul = mod, tooth_number = worm_num_tooth, thread_starts = thread_starts, width = worm_tooth_width, length = worm_length, worm_bore = bore, gear_bore = spur_bore, pressure_angle = pressure_angle, lead_angle = lead_angle, optimized = true, together_built = true, show_spur = show_spur, show_worm = show_worm);
 } else if (gear_type == "spiral_bevel") {
-	spiral_bevel_gear(modul = mod, tooth_number = spiral_bevel_num_tooth, partial_cone_angle = partial_cone_angle, tooth_width = spiral_bevel_tooth_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle);
+	spiral_bevel_gear(modul = mod, tooth_number = spiral_bevel_num_tooth, partial_cone_angle = spiral_bevel_partial_cone_angle, tooth_width = spiral_bevel_tooth_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle);
 } else if (gear_type == "planetary") {
-	planetary_gear(modul = mod, sun_teeth = num_sun_tooth, planet_teeth = num_planet_tooth, number_planets = num_planets, width = planetary_gear_width, rim_width = rim_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle, together_built = together_built, optimized=true, $fn = $fn);
+	planetary_gear(modul = mod, sun_teeth = planetary_num_sun_tooth, planet_teeth = planetary_num_planet_tooth, number_planets = planetary_num_planets, width = planetary_gear_width, rim_width = planetary_rim_width, planet_bore = planetary_planet_bore, sun_bore = planetary_sun_bore, pressure_angle = pressure_angle, helix_angle = helix_angle, together_built = together_built, optimized=true, $fn = $fn);
 } else {
 	assert(false);
 }
