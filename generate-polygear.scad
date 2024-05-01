@@ -91,6 +91,7 @@ poly_planetary_profile_shift = 0; // [0:0.001:1]
 // Tolerence
 poly_planetary_tol = 0.0; // [0:0.001:1]
 poly_planetary_planet_bore = 1.0; // [0:0.01:200]
+poly_planetary_sun_bore = 1.0; // [0:0.01:200]
 
 
 
@@ -122,7 +123,7 @@ if (gear_type == "poly_planetary") {
 	Rz(180/sun_teeth*((planet_teeth+1)%2)) 
 		difference() {
 			spur_gear(n=sun_teeth, z=poly_planetary_thickness, backlash = poly_planetary_backlash, helix_angle = poly_planetary_helix_angle, pressure_angle = poly_planetary_pressure_angle, chamfer = poly_planetary_chamfer, add = poly_planetary_add, ded = poly_planetary_ded, tol = poly_planetary_tol);
-			cylinder(h = 200, d = bore, center = true, $fn = bore_face_num);
+			cylinder(h = 200, d = poly_planetary_sun_bore, center = true, $fn = bore_face_num);
 		}
 	// Now doing the planets
 	// To properly place the planets without tooth interference, theta is computed.
