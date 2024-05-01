@@ -137,7 +137,7 @@ if (gear_type == "poly_planetary") {
 
 		difference() {
 		  spur_gear(n=planet_teeth, z=poly_planetary_thickness, helix_angle = poly_planetary_helix_angle, pressure_angle = poly_planetary_pressure_angle, chamfer = poly_planetary_chamfer, add = poly_planetary_add, ded = poly_planetary_ded, tol = poly_planetary_tol);
-			cylinder(h = 200, d = planet_bore, center = true, $fn = bore_face_num);
+			cylinder(h = 200, d = poly_planetary_planet_bore, center = true, $fn = bore_face_num);
 		}
 	
 } else {
