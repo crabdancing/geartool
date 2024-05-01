@@ -35,13 +35,13 @@ spiral_bevel_partial_cone_angle = 10;
 spiral_bevel_tooth_width = 10;
 
 /* [Planetary] */
-planetary_planet_bore = 1.0; // [0:0.01:200]
-planetary_sun_bore = 1.0; // [0:0.01:200]
-planetary_num_sun_tooth = 15; // [7:1:2000]
-planetary_num_planet_tooth = 14; // [7:1:2000]
-planetary_num_planets = 3; // [2:1:20]
-planetary_rim_width = 10; // [0:0.01:100]
-planetary_gear_width = 10; // [0.5:0.01:100]
+planet_bore_P = 1.0; // [0:0.01:200]
+sun_bore_P = 1.0; // [0:0.01:200]
+num_sun_tooth_P = 15; // [7:1:2000]
+num_planet_tooth_P = 14; // [7:1:2000]
+num_planets_P = 3; // [2:1:20]
+rim_width_P = 10; // [0:0.01:100]
+gear_width_P = 10; // [0.5:0.01:100]
 together_built = true;
 
 if (gear_type == "spur") {
@@ -53,7 +53,7 @@ if (gear_type == "spur") {
 } else if (gear_type == "spiral_bevel") {
 	spiral_bevel_gear(modul = mod, tooth_number = spiral_bevel_num_tooth, partial_cone_angle = spiral_bevel_partial_cone_angle, tooth_width = spiral_bevel_tooth_width, bore = bore, pressure_angle = pressure_angle, helix_angle = helix_angle);
 } else if (gear_type == "planetary") {
-	planetary_gear(modul = mod, sun_teeth = planetary_num_sun_tooth, planet_teeth = planetary_num_planet_tooth, number_planets = planetary_num_planets, width = planetary_gear_width, rim_width = planetary_rim_width, planet_bore = planetary_planet_bore, sun_bore = planetary_sun_bore, pressure_angle = pressure_angle, helix_angle = helix_angle, together_built = together_built, optimized=true, $fn = $fn);
+	gear_P(modul = mod, sun_teeth = num_sun_tooth_P, planet_teeth = num_planet_tooth_P, number_planets = num_planets_P, width = gear_width_P, rim_width = rim_width_P, planet_bore = planet_bore_P, sun_bore = sun_bore_P, pressure_angle = pressure_angle, helix_angle = helix_angle, together_built = together_built, optimized=true, $fn = $fn);
 } else {
 	assert(false);
 }
