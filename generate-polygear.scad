@@ -74,27 +74,27 @@ polybevel_thickness = 0;
 
 /* [PolyGear Planetary] */
 
-poly_planetary_ring_teeth = 41;
-poly_planetary_sun_teeth = 15;
-poly_planetary_num_planets = 3;
-poly_planetary_thickness = 10;
-poly_planetary_backlash = 0.1; // [0:0.0001:2]
-poly_planetary_helix_angle = 0; // [0:0.01:45]
-poly_planetary_pressure_angle = 20; // [5:0.001:40]
-poly_planetary_chamfer = 0.0; // [0:0.1:89]
+ring_teeth_pp = 41;
+sun_teeth_pp = 15;
+num_planets_pp = 3;
+thickness_pp = 10;
+backlash_pp = 0.1; // [0:0.0001:2]
+helix_angle_pp = 0; // [0:0.01:45]
+pressure_angle_pp = 20; // [5:0.001:40]
+chamfer_pp = 0.0; // [0:0.1:89]
 // add to addendum
-poly_planetary_add = 0.1;
+add_pp = 0.1;
 // subtract to the dedendum
-poly_planetary_ded = 0.2;
+ded_pp = 0.2;
 // profile shift
-poly_planetary_profile_shift = 0; // [0:0.001:1]
+profile_shift_pp = 0; // [0:0.001:1]
 // Tolerence
-poly_planetary_tol = 0.0; // [0:0.001:1]
-poly_planetary_planet_bore = 1.0; // [0:0.01:200]
-poly_planetary_sun_bore = 1.0; // [0:0.01:200]
-poly_planetary_enable_ring = true;
-poly_planetary_enable_sun = true;
-poly_planetary_enable_planet = true;
+tol_pp = 0.0; // [0:0.001:1]
+planet_bore_pp = 1.0; // [0:0.01:200]
+sun_bore_pp = 1.0; // [0:0.01:200]
+enable_ring_pp = true;
+enable_sun_pp = true;
+enable_planet_pp = true;
 
 
 
@@ -102,9 +102,9 @@ poly_planetary_enable_planet = true;
 if (gear_type == "poly_planetary") {
 	//////
 
-	ring_teeth = poly_planetary_ring_teeth;
-	sun_teeth = poly_planetary_sun_teeth;
-	n_planets = poly_planetary_num_planets;
+	ring_teeth = ring_teeth_pp;
+	sun_teeth = sun_teeth_pp;
+	n_planets = num_planets_pp;
 
 	//////
 
@@ -117,22 +117,22 @@ if (gear_type == "poly_planetary") {
 
 	// Cutting the ring gear, note that the backlash (which defaults to 0.1) here is negative.
 	// Addendum and dedendum are also given to add some clearance
-	if (poly_planetary_enable_ring) {
+	if (enable_ring_pp) {
 		D() {
-		  Cy(h=poly_planetary_thickness, d=ring_teeth+10, $fn = $fn);
-		  spur_gear(n=ring_teeth, z=poly_planetary_thickness + 1, backlash = -poly_planetary_backlash, helix_angle = poly_planetary_helix_angle, pressure_angle = poly_planetary_pressure_angle, chamfer = poly_planetary_chamfer, add = poly_planetary_add + 0.1, ded = poly_planetary_ded -0.2, tol = poly_planetary_tol);  
+		  Cy(h=thickness_pp, d=ring_teeth+10, $fn = $fn);
+		  spur_gear(n=ring_teeth, z=thickness_pp + 1, backlash = -backlash_pp, helix_angle = helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp + 0.1, ded = ded_pp -0.2, tol = tol_pp);  
 		}
 	}
 
 	// Here comes the sun
-	if (poly_planetary_enable_sun) {
+	if (enable_sun_pp) {
 		Rz(180/sun_teeth*((planet_teeth+1)%2)) 
 			difference() {
-				spur_gear(n=sun_teeth, z=poly_planetary_thickness, backlash = poly_planetary_backlash, helix_angle = poly_planetary_helix_angle, pressure_angle = poly_planetary_pressure_angle, chamfer = poly_planetary_chamfer, add = poly_planetary_add, ded = poly_planetary_ded, tol = poly_planetary_tol);
-				cylinder(h = 200, d = poly_planetary_sun_bore, center = true, $fn = bore_face_num);
+				spur_gear(n=sun_teeth, z=thickness_pp, backlash = backlash_pp, helix_angle = helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp, ded = ded_pp, tol = tol_pp);
+				cylinder(h = 200, d = sun_bore_pp, center = true, $fn = bore_face_num);
 			}
 	}
-	if (poly_planetary_enable_planet) {
+	if (enable_planet_pp) {
 		// Now doing the planets
 		// To properly place the planets without tooth interference, theta is computed.
 		// It may slightly deviate from planet_angle depending on the numeber of teeth and planets.
@@ -145,8 +145,8 @@ if (gear_type == "poly_planetary") {
 		  Rz(theta*sun_teeth/planet_teeth)
 
 			difference() {
-			  spur_gear(n=planet_teeth, z=poly_planetary_thickness, helix_angle = poly_planetary_helix_angle, pressure_angle = poly_planetary_pressure_angle, chamfer = poly_planetary_chamfer, add = poly_planetary_add, ded = poly_planetary_ded, tol = poly_planetary_tol);
-				cylinder(h = 200, d = poly_planetary_planet_bore, center = true, $fn = bore_face_num);
+			  spur_gear(n=planet_teeth, z=thickness_pp, helix_angle = helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp, ded = ded_pp, tol = tol_pp);
+				cylinder(h = 200, d = planet_bore_pp, center = true, $fn = bore_face_num);
 			}
 	}
 	
