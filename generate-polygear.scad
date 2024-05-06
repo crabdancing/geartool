@@ -14,31 +14,31 @@ bore_face_num = 100; // [10:1:500]
 
 /* [PolyGear Spur] */
 // Pressure angle
-polyspur_pressure_angle = 20; // [5:0.001:40]
+pressure_angle_ps = 20; // [5:0.001:40]
 // Helix angle
-polyspur_helix_angle = 0; // [0:0.001:30]
+helix_angle_ps = 0; // [0:0.001:30]
 // Backlash
-polyspur_backlash = 0.1; // [0:0.001:1]
+backlash_ps = 0.1; // [0:0.001:1]
 // Gear width
-polyspur_gear_width = 5; // [1:0.001:1000]
+gear_width_ps = 5; // [1:0.001:1000]
 // Tolerences
-polyspur_tol = 0.0; // [0:0.001:1]
+tol_ps = 0.0; // [0:0.001:1]
 // Chamfer
-polyspur_chamfer = 0.0; // [0:0.1:89]
+chamfer_ps = 0.0; // [0:0.1:89]
 // Chamfer shift -- no idea what it does
-polyspur_chamfer_shift = 1.0;
+chamfer_shift_ps = 1.0;
 // add to addendum
-polyspur_add = 0;
+add_ps = 0;
 // subtract to the dedendum
-polyspur_ded = 0;
+ded_ps = 0;
 // profile shift
-polyspur_profile_shift = 0; // [0:0.001:1]
+profile_shift_ps = 0; // [0:0.001:1]
 // type
-polyspur_type=1; //  [-1:type2, 1:type1]
+type_ps=1; //  [-1:type2, 1:type1]
 // Tooth profile subdivision
-polyspur_face_num = 100;
+face_num_ps = 100;
 // tooth thickness
-polyspur_thickness = 0;
+thickness_ps = 0;
 
 
 /* [PolyGear Bevel] */
@@ -154,7 +154,7 @@ if (gear_type == "poly_planetary") {
 	difference() {
 		union() {
 			if (gear_type == "polyspur") {
-				spur_gear(n = num_teeth, m = mod, z = polyspur_thickness, pressure_angle = polyspur_pressure_angle, helix_angle = polyspur_helix_angle, backlash = polyspur_backlash, w = polyspur_gear_width, tol = polyspur_tol, chamfer = polyspur_chamfer, chamfer_shift = polyspur_chamfer_shift, add = polyspur_add, ded = polyspur_ded, x = polyspur_profile_shift, type = polyspur_type, $fn = polyspur_face_num);
+				spur_gear(n = num_teeth, m = mod, z = thickness,_ps pressure_angle = pressure_angle,_ps helix_angle = helix_angle,_ps backlash = backlash,_ps w = gear_width,_ps tol = tol,_ps chamfer = chamfer,_ps chamfer_shift = chamfer_shift,_ps add = add,_ps ded = ded,_ps x = profile_shift,_ps type = type,_ps $fn = face_num)_ps;
 			} else if (gear_type == "polybevel") {
 				bevel_gear(n = num_teeth, m = mod, w = teeth_width, cone_angle = cone_angle, pressure_angle = polybevel_pressure_angle, helix_angle = polybevel_helix_angle, backlash = polybevel_backlash, z = undef, a0 = undef, b0 = undef, tol = polybevel_tol, add = polybevel_add, ded = polybevel_ded, x = polybevel_profile_shift, type = polybevel_type);
 			} else {
