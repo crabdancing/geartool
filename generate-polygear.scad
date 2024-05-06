@@ -95,6 +95,7 @@ sun_bore_pp = 1.0; // [0:0.01:200]
 enable_ring_pp = true;
 enable_sun_pp = true;
 enable_planet_pp = true;
+together_pp = true;
 
 
 
@@ -114,12 +115,14 @@ if (gear_type == "poly_planetary") {
 	planet_angle = 360/n_planets;
 
 	//////
+	ring_diameter = ring_teeth + 10;
 
 	// Cutting the ring gear, note that the backlash (which defaults to 0.1) here is negative.
 	// Addendum and dedendum are also given to add some clearance
 	if (enable_ring_pp) {
+		translate([together_pp ? 0 : ring_diameter * 1.1, 0, 0])
 		D() {
-		  Cy(h=thickness_pp, d=ring_teeth+10, $fn = $fn);
+		  Cy(h=thickness_pp, d = ring_diameter, $fn = $fn);
 		  spur_gear(n=ring_teeth, z=thickness_pp + 1, backlash = -backlash_pp, helix_angle = helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp + 0.1, ded = ded_pp -0.2, tol = tol_pp);  
 		}
 	}
@@ -136,6 +139,7 @@ if (gear_type == "poly_planetary") {
 		// Now doing the planets
 		// To properly place the planets without tooth interference, theta is computed.
 		// It may slightly deviate from planet_angle depending on the numeber of teeth and planets.
+		translate([together_pp ? 0 : -ring_diameter, 0, 0])
 		for (i=[0:n_planets-1]) 
 		  let(theta = round(i*planet_angle*(ring_teeth+sun_teeth)/360)*
 		              360/(ring_teeth+sun_teeth))
