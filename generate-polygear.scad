@@ -14,31 +14,31 @@ bore_face_num = 100; // [10:1:500]
 
 /* [PolyGear Spur] */
 // Pressure angle
-polyspur_pressure_angle = 20; // [5:0.001:40]
+pressure_angle_ps = 20; // [5:0.001:40]
 // Helix angle
-polyspur_helix_angle = 0; // [0:0.001:30]
+helix_angle_ps = 0; // [0:0.001:30]
 // Backlash
-polyspur_backlash = 0.1; // [0:0.001:1]
+backlash_ps = 0.1; // [0:0.001:1]
 // Gear width
-polyspur_gear_width = 5; // [1:0.001:1000]
+gear_width_ps = 5; // [1:0.001:1000]
 // Tolerences
-polyspur_tol = 0.0; // [0:0.001:1]
+tol_ps = 0.0; // [0:0.001:1]
 // Chamfer
-polyspur_chamfer = 0.0; // [0:0.1:89]
+chamfer_ps = 0.0; // [0:0.1:89]
 // Chamfer shift -- no idea what it does
-polyspur_chamfer_shift = 1.0;
+chamfer_shift_ps = 1.0;
 // add to addendum
-polyspur_add = 0;
+add_ps = 0;
 // subtract to the dedendum
-polyspur_ded = 0;
+ded_ps = 0;
 // profile shift
-polyspur_profile_shift = 0; // [0:0.001:1]
+profile_shift_ps = 0; // [0:0.001:1]
 // type
-polyspur_type=1; //  [-1:type2, 1:type1]
+type_ps=1; //  [-1:type2, 1:type1]
 // Tooth profile subdivision
-polyspur_face_num = 100;
+face_num_ps = 100;
 // tooth thickness
-polyspur_thickness = 0;
+thickness_ps = 0;
 
 
 /* [PolyGear Bevel] */
@@ -46,31 +46,31 @@ cone_angle = 45;
 // Teeth width
 teeth_width = 1.0; // [0:0.001:100]
 // Pressure angle
-polybevel_pressure_angle = 20; // [5:0.001:40]
+pressure_angle_pb = 20; // [5:0.001:40]
 // Helix angle
-polybevel_helix_angle = 0; // [0:0.001:30]
+helix_angle_pb = 0; // [0:0.001:30]
 // Backlash
-polybevel_backlash = 0.1; // [0:0.001:1]
+backlash_pb = 0.1; // [0:0.001:1]
 // Gear width
-polybevel_gear_width = 5; // [1:0.001:1000]
+gear_width_pb = 5; // [1:0.001:1000]
 // Tolerences
-polybevel_tol = 0.0; // [0:0.001:1]
+tol_pb = 0.0; // [0:0.001:1]
 // Chamfer
-polybevel_chamfer = 0.0; // [0:0.1:89]
+chamfer_pb = 0.0; // [0:0.1:89]
 // Chamfer shift -- no idea what it does
-polybevel_chamfer_shift = 1.0;
+chamfer_shift_pb = 1.0;
 // add to addendum
-polybevel_add = 0;
+add_pb = 0;
 // subtract to the dedendum
-polybevel_ded = 0;
+ded_pb = 0;
 // profile shift
-polybevel_profile_shift = 0; // [0:0.001:1]
+profile_shift_pb = 0; // [0:0.001:1]
 // type
-polybevel_type=1; //  [-1:type2, 1:type1]
+typ_pbe=1; //  [-1:type2, 1:type1]
 // Tooth profile subdivision
-polybevel_face_num = 100;
+face_num_pb = 100;
 // tooth thickness
-polybevel_thickness = 0;
+thickness_pb = 0;
 
 /* [PolyGear Planetary] */
 
@@ -154,9 +154,9 @@ if (gear_type == "poly_planetary") {
 	difference() {
 		union() {
 			if (gear_type == "polyspur") {
-				spur_gear(n = num_teeth, m = mod, z = polyspur_thickness, pressure_angle = polyspur_pressure_angle, helix_angle = polyspur_helix_angle, backlash = polyspur_backlash, w = polyspur_gear_width, tol = polyspur_tol, chamfer = polyspur_chamfer, chamfer_shift = polyspur_chamfer_shift, add = polyspur_add, ded = polyspur_ded, x = polyspur_profile_shift, type = polyspur_type, $fn = polyspur_face_num);
+				spur_gear(n = num_teeth, m = mod, z = thickness_ps, pressure_angle = pressure_angle_ps, helix_angle = helix_angle_ps, backlash = backlash_ps, w = gear_width_ps, tol = tol_ps, chamfer = chamfer_ps, chamfer_shift = chamfer_shift_ps, add = add_ps, ded = ded_ps, x = profile_shift_ps, type = type_ps, $fn = face_num_ps);
 			} else if (gear_type == "polybevel") {
-				bevel_gear(n = num_teeth, m = mod, w = teeth_width, cone_angle = cone_angle, pressure_angle = polybevel_pressure_angle, helix_angle = polybevel_helix_angle, backlash = polybevel_backlash, z = undef, a0 = undef, b0 = undef, tol = polybevel_tol, add = polybevel_add, ded = polybevel_ded, x = polybevel_profile_shift, type = polybevel_type);
+				bevel_gear(n = num_teeth, m = mod, w = teeth_width, cone_angle = cone_angle, pressure_angle = pressure_angl_pbe, helix_angle = helix_angl_pbe, backlash = backlas_pbh, z = undef, a0 = undef, b0 = undef, tol = to_pbl, add = ad_pbd, ded = de_pbd, x = profile_shif_pbt, type = typ_pbe);
 			} else {
 				assert(false);
 			}
