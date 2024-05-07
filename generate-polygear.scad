@@ -131,7 +131,7 @@ if (gear_type == "poly_planetary") {
 	if (enable_sun_pp) {
 		Rz(180/sun_teeth*((planet_teeth+1)%2)) 
 			difference() {
-				spur_gear(n=sun_teeth, z=thickness_pp, backlash = backlash_pp, helix_angle = helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp, ded = ded_pp, tol = tol_pp);
+				spur_gear(n=sun_teeth, z=thickness_pp, backlash = backlash_pp, helix_angle = -helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp, ded = ded_pp, tol = tol_pp);
 				cylinder(h = 200, d = sun_bore_pp, center = true, $fn = bore_face_num);
 			}
 	}
