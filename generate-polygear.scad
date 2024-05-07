@@ -139,6 +139,7 @@ if (gear_type == "poly_planetary") {
 		// Now doing the planets
 		// To properly place the planets without tooth interference, theta is computed.
 		// It may slightly deviate from planet_angle depending on the numeber of teeth and planets.
+		n_planets = together_pp ? n_planets : 1;
 		translate([together_pp ? 0 : -ring_diameter, 0, 0])
 		for (i=[0:n_planets-1]) 
 		  let(theta = round(i*planet_angle*(ring_teeth+sun_teeth)/360)*
