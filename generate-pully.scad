@@ -66,7 +66,7 @@ T_Count   = 30;    // [3:1000]
 /* [Drive Shaft] */
 
 // NEMA17 motor shaft exact diameter = 5
-DShaft_D = 8.5;      // [0:.01:10]
+DShaft_D = 8.5;      // [0:.01:300]
 
 // Half shaft fraction
 DShaft_F = 0;       // [0:.01:.5]
