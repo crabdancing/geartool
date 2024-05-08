@@ -17,12 +17,10 @@ bore_face_num = 100; // [10:1:500]
 polyspur_pressure_angle = 20; // [5:0.001:40]
 // Helix angle
 polyspur_helix_angle = 0; // [0:0.001:30]
-// Backlash
-polyspur_backlash = 0.1; // [0:0.001:1]
 // Gear width
 polyspur_gear_width = 5; // [1:0.001:1000]
 // Tolerences
-polyspur_tol = 0.0; // [0:0.001:1]
+polyspur_tol = 0.0; // [-1:0.001:1]
 // Chamfer
 polyspur_chamfer = 0.0; // [0:0.1:89]
 // Chamfer shift -- no idea what it does
@@ -49,8 +47,6 @@ teeth_width = 1.0; // [0:0.001:100]
 polybevel_pressure_angle = 20; // [5:0.001:40]
 // Helix angle
 polybevel_helix_angle = 0; // [0:0.001:30]
-// Backlash
-polybevel_backlash = 0.1; // [0:0.001:1]
 // Gear width
 polybevel_gear_width = 5; // [1:0.001:1000]
 // Tolerences
@@ -78,7 +74,6 @@ ring_teeth_pp = 41;
 sun_teeth_pp = 15;
 num_planets_pp = 3;
 thickness_pp = 10;
-backlash_pp = 0.1; // [0:0.0001:2]
 helix_angle_pp = 0; // [0:0.01:45]
 pressure_angle_pp = 20; // [5:0.001:40]
 chamfer_pp = 0.0; // [0:0.1:89]
@@ -89,7 +84,7 @@ ded_pp = 0.2;
 // profile shift
 profile_shift_pp = 0; // [0:0.001:1]
 // Tolerence
-tol_pp = 0.0; // [0:0.001:1]
+tol_pp = 0.0; // [-1:0.001:1]
 planet_bore_pp = 1.0; // [0:0.01:200]
 sun_bore_pp = 1.0; // [0:0.01:200]
 enable_ring_pp = true;
@@ -123,7 +118,7 @@ if (gear_type == "poly_planetary") {
 		translate([together_pp ? 0 : ring_diameter * 1.1, 0, 0])
 		D() {
 		  Cy(h=thickness_pp, d = ring_diameter, $fn = $fn);
-		  spur_gear(n=ring_teeth, z=thickness_pp + 1, backlash = -backlash_pp, helix_angle = helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp + 0.1, ded = ded_pp -0.2, tol = tol_pp);  
+		  spur_gear(n=ring_teeth, z=thickness_pp + 1, helix_angle = helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp + 0.1, ded = ded_pp -0.2, tol = -tol_pp);  
 		}
 	}
 
@@ -131,7 +126,7 @@ if (gear_type == "poly_planetary") {
 	if (enable_sun_pp) {
 		Rz(180/sun_teeth*((planet_teeth+1)%2)) 
 			difference() {
-				spur_gear(n=sun_teeth, z=thickness_pp, backlash = backlash_pp, helix_angle = -helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp, ded = ded_pp, tol = tol_pp);
+				spur_gear(n=sun_teeth, z=thickness_pp, helix_angle = -helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp, ded = ded_pp, tol = tol_pp);
 				cylinder(h = 200, d = sun_bore_pp, center = true, $fn = bore_face_num);
 			}
 	}
@@ -150,7 +145,7 @@ if (gear_type == "poly_planetary") {
 		  Rz(theta*sun_teeth/planet_teeth)
 
 			difference() {
-			  spur_gear(n=planet_teeth, z=thickness_pp, helix_angle = helix_angle_pp, backlash = backlash_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp, ded = ded_pp, tol = tol_pp);
+			  spur_gear(n=planet_teeth, z=thickness_pp, helix_angle = helix_angle_pp, pressure_angle = pressure_angle_pp, chamfer = chamfer_pp, add = add_pp, ded = ded_pp, tol = tol_pp);
 				cylinder(h = 200, d = planet_bore_pp, center = true, $fn = bore_face_num);
 			}
 	}
@@ -159,9 +154,9 @@ if (gear_type == "poly_planetary") {
 	difference() {
 		union() {
 			if (gear_type == "polyspur") {
-				spur_gear(n = num_teeth, m = mod, z = polyspur_thickness, pressure_angle = polyspur_pressure_angle, helix_angle = polyspur_helix_angle, backlash = polyspur_backlash, w = polyspur_gear_width, tol = polyspur_tol, chamfer = polyspur_chamfer, chamfer_shift = polyspur_chamfer_shift, add = polyspur_add, ded = polyspur_ded, x = polyspur_profile_shift, type = polyspur_type, $fn = polyspur_face_num);
+				spur_gear(n = num_teeth, m = mod, z = polyspur_thickness, pressure_angle = polyspur_pressure_angle, helix_angle = polyspur_helix_angle, w = polyspur_gear_width, tol = polyspur_tol, chamfer = polyspur_chamfer, chamfer_shift = polyspur_chamfer_shift, add = polyspur_add, ded = polyspur_ded, x = polyspur_profile_shift, type = polyspur_type, $fn = polyspur_face_num);
 			} else if (gear_type == "polybevel") {
-				bevel_gear(n = num_teeth, m = mod, w = teeth_width, cone_angle = cone_angle, pressure_angle = polybevel_pressure_angle, helix_angle = polybevel_helix_angle, backlash = polybevel_backlash, z = undef, a0 = undef, b0 = undef, tol = polybevel_tol, add = polybevel_add, ded = polybevel_ded, x = polybevel_profile_shift, type = polybevel_type);
+				bevel_gear(n = num_teeth, m = mod, w = teeth_width, cone_angle = cone_angle, pressure_angle = polybevel_pressure_angle, helix_angle = polybevel_helix_angle, z = undef, a0 = undef, b0 = undef, tol = polybevel_tol, add = polybevel_add, ded = polybevel_ded, x = polybevel_profile_shift, type = polybevel_type);
 			} else {
 				assert(false);
 			}
