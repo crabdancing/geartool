@@ -592,7 +592,7 @@ module herringbone_ring_gear(modul, tooth_number, width, rim_width, pressure_ang
     together_built =
     optimized = Create holes for Material-/Weight-Saving or Surface Enhancements where Geometry allows
     together_built = Components assembled for Construction or separated for 3D-Printing */
-module planetary_gear(modul, sun_teeth, planet_teeth, number_planets, width, rim_width, planet_bore, sun_bore, pressure_angle=20, helix_angle=0, together_built=true, optimized=true){
+module planetary_gear(modul, sun_teeth, planet_teeth, number_planets, width, rim_width, planet_bore, sun_bore, pressure_angle=20, helix_angle=0, together_built=true, optimized=true, use_sun=true, use_planet=true, use_ring=true){
 
     // Dimension Calculations
     d_sun = modul*sun_teeth;                                     // Sun Pitch Circle Diameter
@@ -607,39 +607,44 @@ module planetary_gear(modul, sun_teeth, planet_teeth, number_planets, width, rim
                                                                         // Number of Planet Gears: at most as many as possible without overlap
 
     // Drawing
-    rotate([0,0,180/sun_teeth*rotate]){
-        herringbone_gear (modul, sun_teeth, width, sun_bore, pressure_angle, -helix_angle, optimized);      // Sun Gear
+    if (use_sun) {
+        rotate([0,0,180/sun_teeth*rotate]){
+            herringbone_gear (modul, sun_teeth, width, sun_bore, pressure_angle, -helix_angle, optimized);      // Sun Gear
+        }
     }
 
-    if (together_built){
-        if(number_planets==0){
-            list = [ for (n=[2 : 1 : n_max]) if ((((ring_teeth+sun_teeth)/n)==floor((ring_teeth+sun_teeth)/n))) n];
-            number_planets = list[0];                                      // Determine Number of Planet Gears
-             center_distance = modul*(sun_teeth + planet_teeth)/2;      // Distance from Sun- / Ring-Gear Axis
-            for(n=[0:1:number_planets-1]){
-                translate(sphere_to_cartesian([center_distance,90,360/number_planets*n]))
-                    rotate([0,0,n*360*d_sun/d_planet])
+    if (use_planet) {
+        if (together_built){
+            if(number_planets==0){
+                list = [ for (n=[2 : 1 : n_max]) if ((((ring_teeth+sun_teeth)/n)==floor((ring_teeth+sun_teeth)/n))) n];
+                number_planets = list[0];                                      // Determine Number of Planet Gears
+                 center_distance = modul*(sun_teeth + planet_teeth)/2;      // Distance from Sun- / Ring-Gear Axis
+                for(n=[0:1:number_planets-1]){
+                    translate(sphere_to_cartesian([center_distance,90,360/number_planets*n]))
+                        rotate([0,0,n*360*d_sun/d_planet])
+                            herringbone_gear (modul, planet_teeth, width, planet_bore, pressure_angle, helix_angle, optimized); // Planet Gears
+                }
+           }
+           else{
+                center_distance = modul*(sun_teeth + planet_teeth)/2;       // Distance from Sun- / Ring-Gear Axis
+                for(n=[0:1:number_planets-1]){
+                    translate(sphere_to_cartesian([center_distance,90,360/number_planets*n]))
+                    rotate([0,0,n*360*d_sun/(d_planet)])
                         herringbone_gear (modul, planet_teeth, width, planet_bore, pressure_angle, helix_angle, optimized); // Planet Gears
+                }
             }
-       }
-       else{
-            center_distance = modul*(sun_teeth + planet_teeth)/2;       // Distance from Sun- / Ring-Gear Axis
-            for(n=[0:1:number_planets-1]){
-                translate(sphere_to_cartesian([center_distance,90,360/number_planets*n]))
-                rotate([0,0,n*360*d_sun/(d_planet)])
+        }
+        else{
+            planet_distance = ring_teeth*modul/2+rim_width+d_planet;     // Distance between Planets
+            for(i=[-(number_planets-1):2:(number_planets-1)]){
+                translate([planet_distance, d_planet*i,0])
                     herringbone_gear (modul, planet_teeth, width, planet_bore, pressure_angle, helix_angle, optimized); // Planet Gears
             }
         }
     }
-    else{
-        planet_distance = ring_teeth*modul/2+rim_width+d_planet;     // Distance between Planets
-        for(i=[-(number_planets-1):2:(number_planets-1)]){
-            translate([planet_distance, d_planet*i,0])
-                herringbone_gear (modul, planet_teeth, width, planet_bore, pressure_angle, helix_angle, optimized); // Planet Gears
-        }
+    if (use_ring) {
+        herringbone_ring_gear (modul, ring_teeth, width, rim_width, pressure_angle, helix_angle); // Ring Gear
     }
-
-    herringbone_ring_gear (modul, ring_teeth, width, rim_width, pressure_angle, helix_angle); // Ring Gear
 
 }
 
