@@ -110,7 +110,7 @@ standoff_hollow="no"; //[yes,no]
 $fn=120;
 safety=.01;
 
-use <threadlib/threadlib.scad>
+use <../threadlib/threadlib.scad>
 //----------------------------------------------------------------------------
 // begin easy bolt code
 //----------------------------------------------------------------------------
